@@ -35,7 +35,7 @@ pipeline{
 				build job: 'deploy-to-prod'
 			}
 			post{
-				success:{
+				success{
 					echo "Project Deployed to prod"
 				}
 				faliure{
