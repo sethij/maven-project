@@ -38,7 +38,7 @@ pipeline{
 				success{
 					echo "Project Deployed to prod"
 				}
-				faliure{
+				failure{
 					echo "Project not deployed to prod"
 				}
 			}
