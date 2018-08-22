@@ -5,44 +5,44 @@ pipeline{
 		maven 'localMaven'
 	}
 	
+	parameters{
+		string(name: 'tomcat_dev', defaultvalue: 'D:\apache-tomcat-8.5.32\webapps\', description: 'Staging server' )
+		string(name: 'tomcat_prod', defaultvalue: 'D:\apache-tomcat-8.5.32_prod\webapps\', description: 'Staging server' )
+	}
+	
+	triggers{
+		pollSCM('* * * * *');
+	}
+	
 	stages{
-		stage('build'){
+		stage('Build'){
 			steps{
-				echo 'building..'
+				echo 'Building..'
 				bat 'mvn clean package'
 			}
 			post{
 				success{
-				echo 'Now archiving'
-				archiveArtifacts artifacts: '**/target/*.war'
+					echo 'Archieving...'
+					archieveArtifact artifacts: '**/target/*.war'
 				}
 			}
 		}
-		
-		stage('deploy-to-staging'){
-			steps{
-				echo "deploying to staging"
-				build job : 'deploy-to-staging'
+		stage('Deploy'){
+			parallel{
+				stage('Deploy to staging'){
+					step{
+						echo 'Deploying to staging'
+						bat 'xcopy **/target/*.war ${params.tomcat_dev}'
+					}
+				}
+				stage('Deploy to staging'){
+					step{
+						echo 'Deploying to prod'
+						bat 'xcopy **/target/*.war ${params.tomcat_prod}'
+					}
+				}
+				
 			}
 		}
-		
-		stage('deploy-to-production'){
-			steps{
-				timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-				echo "Deploying to production"
-				build job: 'deploy-to-prod'
-			}
-			post{
-				success{
-					echo "Project Deployed to prod"
-				}
-				failure{
-					echo "Project not deployed to prod"
-				}
-			}
-		}
-	
 	}
 }
