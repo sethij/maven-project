@@ -6,8 +6,8 @@ pipeline{
 	}
 	
 	parameters{
-		string(name: 'tomcat_dev', defaultvalue: 'D:\\apache-tomcat-8.5.32\\webapps\\', description: 'Staging server' )
-		string(name: 'tomcat_prod', defaultvalue: 'D:\\apache-tomcat-8.5.32_prod\\webapps\\', description: 'Staging server' )
+		string(name: 'tomcat_dev', defaultValue: 'D:\\apache-tomcat-8.5.32\\webapps\\', description: 'Staging server' )
+		string(name: 'tomcat_prod', defaultValue: 'D:\\apache-tomcat-8.5.32_prod\\webapps\\', description: 'Staging server' )
 	}
 	
 	triggers{
