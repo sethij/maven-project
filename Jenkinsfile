@@ -6,8 +6,8 @@ pipeline{
 	}
 	
 	parameters{
-		string(name: 'tomcat_dev', defaultValue: 'D:/apache-tomcat-8.5.32/webapps', description: 'Staging server' )
-		string(name: 'tomcat_prod', defaultValue: 'D:/apache-tomcat-8.5.32_prod/webapps', description: 'Staging server' )
+		string(name: 'tomcat_dev', defaultValue: 'D:\\apache-tomcat-8.5.32\\webapps\\', description: 'Staging server' )
+		string(name: 'tomcat_prod', defaultValue: 'D:\\apache-tomcat-8.5.32_prod\\webapps\\', description: 'Staging server' )
 	}
 	
 	triggers{
@@ -32,13 +32,13 @@ pipeline{
 				stage('Deploy to staging'){
 					steps{
 						echo 'Deploying to staging'
-						bat 'xcopy webapp/target/*.war D:/apache-tomcat-8.5.32/webapps'
+						bat 'xcopy webapp\\target\\*.war ${params.tomcat_dev}'
 					}
 				}
 				stage('Deploy to prod'){
 					steps{
 						echo 'Deploying to prod'
-						bat 'xcopy webapp/target/*.war D:/apache-tomcat-8.5.32_prod/webapps'
+						bat 'xcopy webapp\\target\\*.war ${params.tomcat_prod}'
 					}
 				}
 				
