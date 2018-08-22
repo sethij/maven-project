@@ -32,13 +32,13 @@ pipeline{
 				stage('Deploy to staging'){
 					steps{
 						echo 'Deploying to staging'
-						bat 'sh  "cp **/target/*.war ${params.tomcat_dev}" '
+						bat 'cp **/target/*.war ${params.tomcat_dev}'
 					}
 				}
 				stage('Deploy to staging'){
 					steps{
 						echo 'Deploying to prod'
-						bat 'sh  "cp **/target/*.war ${params.tomcat_prod}" '
+						bat 'cp **/target/*.war ${params.tomcat_prod}'
 					}
 				}
 				
