@@ -30,13 +30,13 @@ pipeline{
 		stage('Deploy'){
 			parallel{
 				stage('Deploy to staging'){
-					step{
+					steps{
 						echo 'Deploying to staging'
 						bat 'xcopy **/target/*.war ${params.tomcat_dev}'
 					}
 				}
 				stage('Deploy to staging'){
-					step{
+					steps{
 						echo 'Deploying to prod'
 						bat 'xcopy **/target/*.war ${params.tomcat_prod}'
 					}
